@@ -19,6 +19,17 @@ interface EditorDialogProps {
   children?: ReactNode
 }
 
+/**
+ * Renders a modal dialog with a title, optional description, optional footer, and custom content.
+ *
+ * @param open - Controls whether the dialog is visible
+ * @param onOpenChange - Callback invoked with the new open state when visibility changes
+ * @param title - Text displayed as the dialog title
+ * @param description - Optional text displayed below the title
+ * @param footer - Optional content rendered in the dialog footer
+ * @param children - Content rendered between the header and footer
+ * @returns The rendered dialog element
+ */
 export function EditorDialog({
   open,
   onOpenChange,

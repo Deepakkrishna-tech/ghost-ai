@@ -10,6 +10,13 @@ interface ProjectSidebarProps {
   onClose: () => void
 }
 
+/**
+ * Render a slide-in left sidebar labeled "Projects" with tabs for "My Projects" and "Shared" and a "New Project" action.
+ *
+ * @param isOpen - Controls whether the sidebar is visible (when `false` the sidebar is hidden off-screen).
+ * @param onClose - Callback invoked when the sidebar's close button is clicked.
+ * @returns A JSX element representing the Projects sidebar.
+ */
 export function ProjectSidebar({ isOpen, onClose }: ProjectSidebarProps) {
   return (
     <aside
