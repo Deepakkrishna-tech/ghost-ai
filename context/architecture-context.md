@@ -14,17 +14,18 @@
 
 ## System Boundaries
 
-- `app/api` — Authenticated request handlers: input validation, ownership checks, task triggering, and persistence.
-- `trigger` — Long-running background jobs: AI design generation and spec generation.
-- `lib` — Shared infrastructure: Prisma client, access control helpers, and utilities.
-- `components` — UI composition: canvas surfaces, sidebars, dialogs, and interactive elements.
-- `prisma` — Database schema and generated client output.
-- `data` — Legacy local directory. Not used for new artifacts.
+- `proxy` - Root-level auth and redirect boundary: Clerk route protection, public auth routes, and request-time access checks.
+- `app/api` - Authenticated request handlers: input validation, ownership checks, task triggering, and persistence.
+- `trigger` - Long-running background jobs: AI design generation and spec generation.
+- `lib` - Shared infrastructure: Prisma client, access control helpers, and utilities.
+- `components` - UI composition: canvas surfaces, sidebars, dialogs, and interactive elements.
+- `prisma` - Database schema and generated client output.
+- `data` - Legacy local directory. Not used for new artifacts.
 
 ## Storage Model
 
 - **Database**: metadata, ownership, relationships, and task run records.
-- **Vercel Blob**: generated artifacts — canvas snapshots at `canvas/{projectId}.json` and specs at `specs/{projectId}/{specId}.md`.
+- **Vercel Blob**: generated artifacts - canvas snapshots at `canvas/{projectId}.json` and specs at `specs/{projectId}/{specId}.md`.
 - Project records, spec records, and task run records belong in PostgreSQL.
 - Canvas content and Markdown output are stored in and retrieved from Vercel Blob.
 - The blob URL is stored in the database (`canvasJsonPath`, `filePath`) as the reference to the artifact.
@@ -36,6 +37,7 @@
 - Only authenticated users can access protected routes.
 - Only the owner or a collaborator can mutate project resources.
 - Liveblocks room tokens are issued only after verifying project membership.
+- Route protection is enforced in `proxy.ts`, while server components and route handlers still perform auth checks close to the data they access.
 
 ## Starter System Designs
 
@@ -61,7 +63,7 @@
 
 ## Invariants
 
-1. Request handlers do not run long-lived AI work — that belongs in background tasks.
+1. Request handlers do not run long-lived AI work - that belongs in background tasks.
 2. Metadata and large generated artifacts are stored in separate layers.
 3. Auth and ownership are enforced at every mutation boundary.
 4. Client components are used only where browser interactivity or real-time state requires them.
