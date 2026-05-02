@@ -25,7 +25,6 @@
 *.pem
 .agents/
 .claude/
-skills-lock.json
 
 # debug
 npm-debug.log*

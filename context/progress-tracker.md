@@ -15,6 +15,7 @@ Update this file whenever the current phase, active feature, or implementation s
 - Feature 01: Design System - shadcn/ui installed and configured (new-york style, CSS variables, Tailwind v4), Button/Card/Dialog/Input/Tabs/Textarea/ScrollArea components added to components/ui/, lucide-react installed, lib/utils.ts has cn() helper, globals.css has full dark-only theme (Ghost AI design tokens + shadcn semantic tokens in :root, @theme inline Tailwind utility mappings).
 - Feature 02: Editor Shell - EditorNavbar (fixed top bar, PanelLeftOpen/Close toggle, left/center/right sections), ProjectSidebar (floating overlay, slides in from left, My Projects/Shared tabs with empty states, New Project button), EditorDialog (reusable dialog pattern with title, description, footer - ready for future dialogs). All in components/editor/. No TypeScript or lint errors.
 - Feature 03: Auth - ClerkProvider wraps the root layout with the dark theme from @clerk/ui/themes and CSS-variable appearance overrides, `afterSignOutUrl="/sign-in"` is set so logout redirects immediately without a refresh, proxy.ts protects all non-public routes, / redirects signed-in users to /editor and signed-out users to /sign-in, dedicated sign-in and sign-up catch-all routes render Clerk forms in a no-scroll auth shell (`h-screen overflow-hidden`) with a desktop 50:50 split, constrained left-side product copy (`max-w-lg`), and a right-column-centered auth card (`max-w-md`) whose social buttons, divider, email field, and continue button share one width system, and the editor navbar includes Clerk's UserButton.
+- Feature 04: Project Dialogs & Editor Home - Editor home screen replaced with minimal centered layout (heading, description, New Project button). `useProjectDialogs` hook in `hooks/use-project-dialogs.ts` manages dialog/form/loading state and holds MOCK_PROJECTS. CreateProjectDialog (live slug preview), RenameProjectDialog (prefilled, autoFocus, Enter submits), DeleteProjectDialog (destructive confirm only) all reuse EditorDialog. ProjectSidebar updated: shows owned project items with hover-revealed rename/delete icon actions, shared tab items have no actions, mobile backdrop scrim added. All actions wired: home New Project → Create, sidebar New Project → Create, sidebar item rename/delete → respective dialogs.
 - Project README - Replaced the default create-next-app README with a concise Ghost AI overview covering current status, core flow, planned stack, architecture notes, local setup, scripts, and context/spec documentation.
 
 ## In Progress
@@ -23,7 +24,7 @@ Update this file whenever the current phase, active feature, or implementation s
 
 ## Next Up
 
-- Feature 04: (TBD - see feature-specs)
+- Feature 05: (TBD - see feature-specs)
 
 ## Open Questions
 
