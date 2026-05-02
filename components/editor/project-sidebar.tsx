@@ -4,22 +4,23 @@ import { FolderOpen, Pencil, Plus, Trash2, Users, X } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { cn } from "@/lib/utils"
-import { MOCK_PROJECTS, type MockProject } from "@/hooks/use-project-dialogs"
+import type { Project } from "@/hooks/use-project-actions"
 
 interface ProjectSidebarProps {
   isOpen: boolean
   onClose: () => void
+  ownedProjects: Project[]
+  sharedProjects: Project[]
   onCreateProject: () => void
-  onRenameProject: (project: MockProject) => void
-  onDeleteProject: (project: MockProject) => void
+  onRenameProject: (project: Project) => void
+  onDeleteProject: (project: Project) => void
 }
-
-const ownedProjects = MOCK_PROJECTS.filter((p) => p.owned)
-const sharedProjects = MOCK_PROJECTS.filter((p) => !p.owned)
 
 export function ProjectSidebar({
   isOpen,
   onClose,
+  ownedProjects,
+  sharedProjects,
   onCreateProject,
   onRenameProject,
   onDeleteProject,
@@ -114,9 +115,9 @@ export function ProjectSidebar({
 }
 
 interface ProjectItemProps {
-  project: MockProject
-  onRename?: (project: MockProject) => void
-  onDelete?: (project: MockProject) => void
+  project: Project
+  onRename?: (project: Project) => void
+  onDelete?: (project: Project) => void
 }
 
 function ProjectItem({ project, onRename, onDelete }: ProjectItemProps) {

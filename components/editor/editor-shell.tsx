@@ -8,11 +8,16 @@ import { CreateProjectDialog } from "@/components/editor/create-project-dialog"
 import { RenameProjectDialog } from "@/components/editor/rename-project-dialog"
 import { DeleteProjectDialog } from "@/components/editor/delete-project-dialog"
 import { Button } from "@/components/ui/button"
-import { useProjectDialogs } from "@/hooks/use-project-dialogs"
+import { useProjectActions, type Project } from "@/hooks/use-project-actions"
 
-export function EditorShell() {
+interface EditorShellProps {
+  ownedProjects: Project[]
+  sharedProjects: Project[]
+}
+
+export function EditorShell({ ownedProjects, sharedProjects }: EditorShellProps) {
   const [isSidebarOpen, setIsSidebarOpen] = useState(true)
-  const dialogs = useProjectDialogs()
+  const actions = useProjectActions()
 
   return (
     <div className="min-h-screen bg-base text-copy-primary">
@@ -23,9 +28,11 @@ export function EditorShell() {
       <ProjectSidebar
         isOpen={isSidebarOpen}
         onClose={() => setIsSidebarOpen(false)}
-        onCreateProject={dialogs.openCreate}
-        onRenameProject={dialogs.openRename}
-        onDeleteProject={dialogs.openDelete}
+        ownedProjects={ownedProjects}
+        sharedProjects={sharedProjects}
+        onCreateProject={actions.openCreate}
+        onRenameProject={actions.openRename}
+        onDeleteProject={actions.openDelete}
       />
 
       <main className="flex min-h-screen flex-col items-center justify-center gap-5 px-6 pt-12">
@@ -35,35 +42,36 @@ export function EditorShell() {
         <p className="text-sm text-copy-muted">
           Start a new architecture workspace, or choose a project from the sidebar.
         </p>
-        <Button onClick={dialogs.openCreate}>
+        <Button onClick={actions.openCreate}>
           <Plus className="h-4 w-4" />
           New Project
         </Button>
       </main>
 
       <CreateProjectDialog
-        open={dialogs.dialog === "create"}
-        projectName={dialogs.projectName}
-        isLoading={dialogs.isLoading}
-        onProjectNameChange={dialogs.setProjectName}
-        onSubmit={dialogs.submit}
-        onClose={dialogs.closeDialog}
+        open={actions.dialog === "create"}
+        projectName={actions.projectName}
+        roomId={actions.roomId}
+        isLoading={actions.isLoading}
+        onProjectNameChange={actions.setProjectName}
+        onSubmit={actions.submit}
+        onClose={actions.closeDialog}
       />
       <RenameProjectDialog
-        open={dialogs.dialog === "rename"}
-        project={dialogs.targetProject}
-        projectName={dialogs.projectName}
-        isLoading={dialogs.isLoading}
-        onProjectNameChange={dialogs.setProjectName}
-        onSubmit={dialogs.submit}
-        onClose={dialogs.closeDialog}
+        open={actions.dialog === "rename"}
+        project={actions.targetProject}
+        projectName={actions.projectName}
+        isLoading={actions.isLoading}
+        onProjectNameChange={actions.setProjectName}
+        onSubmit={actions.submit}
+        onClose={actions.closeDialog}
       />
       <DeleteProjectDialog
-        open={dialogs.dialog === "delete"}
-        project={dialogs.targetProject}
-        isLoading={dialogs.isLoading}
-        onConfirm={dialogs.submit}
-        onClose={dialogs.closeDialog}
+        open={actions.dialog === "delete"}
+        project={actions.targetProject}
+        isLoading={actions.isLoading}
+        onConfirm={actions.submit}
+        onClose={actions.closeDialog}
       />
     </div>
   )

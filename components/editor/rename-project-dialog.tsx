@@ -4,11 +4,11 @@ import type { KeyboardEvent } from "react"
 import { EditorDialog } from "@/components/editor/editor-dialog"
 import { Input } from "@/components/ui/input"
 import { Button } from "@/components/ui/button"
-import type { MockProject } from "@/hooks/use-project-dialogs"
+import type { Project } from "@/hooks/use-project-actions"
 
 interface RenameProjectDialogProps {
   open: boolean
-  project: MockProject | null
+  project: Project | null
   projectName: string
   isLoading: boolean
   onProjectNameChange: (name: string) => void

@@ -4,18 +4,10 @@ import { EditorDialog } from "@/components/editor/editor-dialog"
 import { Input } from "@/components/ui/input"
 import { Button } from "@/components/ui/button"
 
-function toSlug(name: string): string {
-  return name
-    .toLowerCase()
-    .replace(/\s+/g, "-")
-    .replace(/[^a-z0-9-]/g, "")
-    .replace(/-+/g, "-")
-    .replace(/^-|-$/g, "")
-}
-
 interface CreateProjectDialogProps {
   open: boolean
   projectName: string
+  roomId: string
   isLoading: boolean
   onProjectNameChange: (name: string) => void
   onSubmit: () => void
@@ -25,13 +17,12 @@ interface CreateProjectDialogProps {
 export function CreateProjectDialog({
   open,
   projectName,
+  roomId,
   isLoading,
   onProjectNameChange,
   onSubmit,
   onClose,
 }: CreateProjectDialogProps) {
-  const slug = toSlug(projectName)
-
   return (
     <EditorDialog
       open={open}
@@ -61,10 +52,10 @@ export function CreateProjectDialog({
           onChange={(e) => onProjectNameChange(e.target.value)}
           autoFocus
         />
-        {slug && (
+        {roomId && (
           <p className="text-xs text-copy-muted">
-            Slug:{" "}
-            <span className="font-mono text-copy-secondary">{slug}</span>
+            Room ID:{" "}
+            <span className="font-mono text-copy-secondary">{roomId}</span>
           </p>
         )}
       </div>
