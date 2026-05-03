@@ -30,6 +30,7 @@ export interface ProjectActionsHook {
   roomId: string
   targetProject: Project | null
   isLoading: boolean
+  error: string | null
   openCreate: () => void
   openRename: (project: Project) => void
   openDelete: (project: Project) => void
@@ -47,6 +48,7 @@ export function useProjectActions(): ProjectActionsHook {
   const [suffix, setSuffix] = useState("")
   const [targetProject, setTargetProject] = useState<Project | null>(null)
   const [isLoading, setIsLoading] = useState(false)
+  const [error, setError] = useState<string | null>(null)
 
   const slug = toSlug(projectName)
   const roomId = slug ? `${slug}-${suffix}` : suffix
@@ -116,6 +118,7 @@ export function useProjectActions(): ProjectActionsHook {
 
   function submit() {
     setIsLoading(true)
+    setError(null)
     const action =
       dialog === "create"
         ? createProject
@@ -131,7 +134,9 @@ export function useProjectActions(): ProjectActionsHook {
     }
 
     action()
-      .catch(() => {})
+      .catch((err: Error) => {
+        setError(err.message || "An error occurred")
+      })
       .finally(() => setIsLoading(false))
   }
 
@@ -141,6 +146,7 @@ export function useProjectActions(): ProjectActionsHook {
     roomId,
     targetProject,
     isLoading,
+    error,
     openCreate,
     openRename,
     openDelete,

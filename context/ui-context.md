@@ -8,7 +8,7 @@ All colors are defined as CSS custom properties in `globals.css` and mapped to T
 
 | Role             | CSS Variable           | Hex / Value               |
 | ---------------- | ---------------------- | ------------------------- |
-| Page background  | `--bg-base`            | `#080809`                 |
+| Page background  | `--bg-base`            | `#0b0f14`                 |
 | Surface          | `--bg-surface`         | `#111114`                 |
 | Elevated surface | `--bg-elevated`        | `#18181c`                 |
 | Subtle surface   | `--bg-subtle`          | `#1e1e23`                 |
@@ -46,6 +46,17 @@ Radius increases with surface depth — smaller for inner elements, larger for o
 | Inline / small UI | `rounded-xl`  |
 | Cards / panels    | `rounded-2xl` |
 | Modal / overlay   | `rounded-3xl` |
+
+## Workspace Shell
+
+The editor workspace shell uses app-level CSS classes for premium dark styling without modifying generated UI foundation components:
+
+- `workspace-shell` - deep dark page background with subtle radial mesh glows.
+- `workspace-glass` - glassmorphism panel treatment with `rgba(255,255,255,0.03)`, 12px backdrop blur, low-contrast border, and soft depth.
+- `workspace-canvas` - dark canvas placeholder with a 40px low-contrast grid and restrained radial glow.
+- `workspace-primary-button` - cyan-to-blue gradient primary button with rounded 10px corners and a soft hover glow.
+
+These classes preserve the required editor layout: left projects sidebar, center canvas area, and right AI Copilot sidebar.
 
 ## Canvas
 
