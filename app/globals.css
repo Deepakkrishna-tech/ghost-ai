@@ -1,6 +1,7 @@
 @import "tailwindcss";
 @import "tw-animate-css";
 @import "shadcn/tailwind.css";
+@import "@xyflow/react/dist/style.css";
 
 @custom-variant dark (&:is(.dark *));
 
@@ -60,7 +61,7 @@
 
 :root {
     /* Ghost AI design system variables */
-    --bg-base: #080809;
+    --bg-base: #0b0f14;
     --bg-surface: #111114;
     --bg-elevated: #18181c;
     --bg-subtle: #1e1e23;
@@ -79,7 +80,7 @@
     --state-warning: #fbbf24;
 
     /* shadcn/ui semantic tokens — dark-only values */
-    --background: #080809;
+    --background: #0b0f14;
     --foreground: #f0f0f4;
     --card: #111114;
     --card-foreground: #f0f0f4;
@@ -98,6 +99,17 @@
     --input: #2a2a30;
     --ring: #00c8d4;
     --radius: 0.625rem;
+
+    /* Workspace polish variables */
+    --workspace-panel-bg: rgba(255, 255, 255, 0.03);
+    --workspace-panel-border: rgba(255, 255, 255, 0.08);
+    --workspace-panel-hover: rgba(255, 255, 255, 0.06);
+    --workspace-grid-line: rgba(255, 255, 255, 0.03);
+    --workspace-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+    --workspace-button-gradient: linear-gradient(135deg, #00c6ff, #0072ff);
+    --workspace-button-glow: 0 0 22px rgba(0, 198, 255, 0.28);
+    --workspace-canvas-glow: rgba(0, 200, 212, 0.11);
+    --workspace-ai-glow: rgba(100, 87, 249, 0.12);
 }
 
 @layer base {
@@ -116,4 +128,75 @@
     html {
         @apply font-sans;
     }
+}
+
+@layer components {
+    .workspace-shell {
+        background: var(--bg-base);
+    }
+
+    .workspace-glass {
+        background: var(--workspace-panel-bg);
+        border: 1px solid var(--workspace-panel-border);
+        box-shadow: var(--workspace-shadow);
+        backdrop-filter: blur(12px);
+    }
+
+    .workspace-sidebar {
+        background: var(--bg-elevated);
+    }
+
+    .workspace-canvas {
+        background-color: var(--bg-base);
+        background-image:
+            linear-gradient(var(--workspace-grid-line) 1px, transparent 1px),
+            linear-gradient(90deg, var(--workspace-grid-line) 1px, transparent 1px);
+        background-size: 40px 40px, 40px 40px;
+    }
+
+    .workspace-sidebar-button {
+        background: #14532d;
+        border-color: rgba(74, 222, 128, 0.15);
+        border-radius: 10px;
+        color: #86efac;
+        box-shadow: 0 4px 12px rgba(20, 83, 45, 0.25);
+    }
+
+    .workspace-sidebar-button:hover {
+        background: #166534;
+        box-shadow: 0 4px 18px rgba(22, 101, 52, 0.4);
+        filter: brightness(1.06);
+    }
+
+    .workspace-primary-button {
+        background: var(--workspace-button-gradient);
+        border-color: rgba(255, 255, 255, 0.12);
+        border-radius: 10px;
+        color: var(--bg-base);
+        box-shadow: 0 8px 20px rgba(0, 114, 255, 0.18);
+    }
+
+    .workspace-primary-button:hover {
+        box-shadow: var(--workspace-button-glow);
+        filter: brightness(1.08);
+    }
+}
+
+/* React Flow dark theme overrides */
+.react-flow {
+    --xy-background-color: var(--bg-base);
+    --xy-minimap-background-color: var(--bg-elevated);
+    --xy-node-border-radius: 8px;
+    --xy-node-border: 1px solid var(--border-default);
+    --xy-node-background-color: var(--bg-elevated);
+    --xy-node-color: var(--text-primary);
+    --xy-edge-stroke: #f8fafc;
+    --xy-edge-stroke-width: 1.5;
+    background: var(--bg-base);
+}
+
+.react-flow__minimap {
+    background: var(--bg-elevated);
+    border: 1px solid var(--border-default);
+    border-radius: 8px;
 }

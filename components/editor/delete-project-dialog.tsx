@@ -2,11 +2,11 @@
 
 import { EditorDialog } from "@/components/editor/editor-dialog"
 import { Button } from "@/components/ui/button"
-import type { MockProject } from "@/hooks/use-project-dialogs"
+import type { Project } from "@/hooks/use-project-actions"
 
 interface DeleteProjectDialogProps {
   open: boolean
-  project: MockProject | null
+  project: Project | null
   isLoading: boolean
   onConfirm: () => void
   onClose: () => void
